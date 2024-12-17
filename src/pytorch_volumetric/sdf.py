@@ -400,6 +400,8 @@ class ComposedSDF(ObjectFrameSDF):
         # S x B x N x 3
         if self.tsf_batch is not None:
             pts = pts.reshape(S, *self.tsf_batch, *flat_shape)
+        if len(pts.shape) == 2:
+            pts = pts.unsqueeze(0)
         sdfv = []
         sdfg = []
         for i, sdf in enumerate(self.sdfs):
